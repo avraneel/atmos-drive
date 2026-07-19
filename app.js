@@ -13,6 +13,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const connectionString = process.env.DATABASE_URL;
+console.log(connectionString);
 const adapter = new PrismaPg({ connectionString });
 const client = new PrismaClient({ adapter });
 
