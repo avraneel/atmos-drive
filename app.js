@@ -2,6 +2,7 @@ import path from "node:path";
 import "dotenv/config";
 import express from "express";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "./generated/prisma/client.js";
 import session from "express-session";
 
 import { router } from "./routes/index.js";
@@ -11,6 +12,7 @@ const port = process.env.PORT || 3000;
 
 const connectionString = process.env.DATABASE_URL;
 const adapter = new PrismaPg({ connectionString });
+const client = new PrismaClient({ adapter });
 
 app.set("view engine", "ejs");
 
