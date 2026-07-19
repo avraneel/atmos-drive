@@ -1,7 +1,11 @@
 <nav>
   <h1><a href="/">Atmos Drive</a></h1>
   <ul>
-    <li><a href="/register">Register</a></li>
-    <li><a href="/login">Login</a></li>
+    <% if(currentUser) { %>
+      <li>Logout</li>
+    <% } else { %>
+      <li><a href="/register">Register</a></li>
+      <li><a href="/login">Login</a></li>
+    <% } %>
   </ul>
 </nav>

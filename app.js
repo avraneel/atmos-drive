@@ -1,4 +1,5 @@
 import path from "node:path";
+import passport from "passport";
 import "dotenv/config";
 import express from "express";
 import session from "express-session";
@@ -28,6 +29,7 @@ app.use(
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },
     secret: process.env.SECRET,
+    resave: true,
     saveUninitialized: true,
     store: new PrismaSessionStore(client, {
       checkPeriod: 2 * 60 * 1000,
@@ -36,6 +38,7 @@ app.use(
     }),
   }),
 );
+app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
