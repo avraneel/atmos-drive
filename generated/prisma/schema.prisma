@@ -16,6 +16,7 @@ model Session {
 
 model User {
   id       Int    @id @default(autoincrement())
+  fullname String
   username String
   password String
 }
