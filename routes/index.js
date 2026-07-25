@@ -1,7 +1,8 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
-import { client } from "../db/client.js";
+import { prisma } from "../db/client.js";
+import passport from "passport";
 
 export const router = Router();
 
@@ -29,11 +30,6 @@ router.get("/", (req, res) => {
 router.get("/register", (req, res) => {
   res.render("register");
 });
-
-router.get("/login", (req, res) => {
-  res.render("login");
-});
-
 router.post("/register", validateUser, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -42,7 +38,7 @@ router.post("/register", validateUser, async (req, res, next) => {
   }
   console.log("this should not happening");
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  await client.user.create({
+  await prisma.user.create({
     data: {
       fullname: req.body.fullname,
       username: req.body.username,
@@ -50,4 +46,25 @@ router.post("/register", validateUser, async (req, res, next) => {
     },
   });
   res.redirect("/login");
+});
+
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
+);
+
+router.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
