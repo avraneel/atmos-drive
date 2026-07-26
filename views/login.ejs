@@ -7,17 +7,19 @@
   </head>
   <body>
     <%- include("partials/navbar") %>
-    <form action="/login" method="post" class="authform">
+    <div class="formContainer">
       <h2>Login</h2>
-      <div class="formItem">
-        <label for="username">Username *</label>
-        <input type="text" name="username" id="username" required />
-      </div>
-      <div class="formItem">
-        <label for="password">Password *</label>
-        <input type="password" name="password" id="password" required />
-      </div>
-      <button class="submit">Submit</button>
-    </form>
+      <form action="/login" method="post" class="authform">
+        <div class="formItem">
+          <label for="username">Username *</label>
+          <input type="text" name="username" id="username" required />
+        </div>
+        <div class="formItem">
+          <label for="password">Password *</label>
+          <input type="password" name="password" id="password" required />
+        </div>
+        <button class="submit">Submit</button>
+      </form>
+    </div>
   </body>
 </html>

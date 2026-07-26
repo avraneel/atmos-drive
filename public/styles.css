@@ -1,10 +1,24 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 *:not(dialog) {
   margin: 0;
 }
 
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
 /* topbar */
 
-.topnav {
+.topnav ul {
   background-color: #0d14e1;
   display: flex;
   justify-content: space-between;
@@ -28,23 +42,29 @@
 
 /* form */
 
-.authform {
-  padding: 1rem;
-  border: 1px solid wheat;
+.formContainer {
   display: grid;
-  gap: 1rem;
+  padding: 1rem;
   justify-content: center;
+  border: 1px solid red;
+  gap: 2rem;
+}
+
+.authform {
+  display: grid;
+  gap: 2rem;
 }
 
 .submit {
   justify-self: end;
+  padding: 0.5rem 2rem;
+}
+
+.submit:hover {
+  cursor: pointer;
 }
 
 .formItem {
-  display: flex;
-  gap: 1rem;
-}
-
-.formItem label {
-  text-align: end;
+  display: grid;
+  gap: 0.5rem;
 }

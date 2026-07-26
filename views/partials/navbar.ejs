@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="./styles.css">
-<header>
-  <ul class="topnav">
+<nav class="topnav">
+  <ul>
     <li class="navitem"><a href="/">Atmos Drive</a></li>
     <% if(currentUser) { %>
-      <li><a href="/logout">Logout</a></li>
+      <li class="navitem"><%= currentUser.fullname %></li>
+      <li class="navitem"><a href="/logout">Logout</a></li>
     <% } else { %>
       <div class="navitem authbar">
         <li class="navitem"><a href="/register">Register</a></li>
@@ -11,4 +12,4 @@
       </div>
     <% } %>
   </ul>
-</header>
+</nav>
