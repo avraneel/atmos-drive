@@ -1,0 +1,50 @@
+*:not(dialog) {
+  margin: 0;
+}
+
+/* topbar */
+
+.topnav {
+  background-color: #0d14e1;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem;
+}
+
+.topnav a {
+  text-decoration: none;
+  color: #fdf6ed;
+}
+
+.navitem {
+  list-style-type: none;
+}
+
+.authbar {
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+}
+
+/* form */
+
+.authform {
+  padding: 1rem;
+  border: 1px solid wheat;
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.submit {
+  justify-self: end;
+}
+
+.formItem {
+  display: flex;
+  gap: 1rem;
+}
+
+.formItem label {
+  text-align: end;
+}

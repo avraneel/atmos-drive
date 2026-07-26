@@ -1,11 +1,14 @@
-<nav>
-  <h1><a href="/">Atmos Drive</a></h1>
-  <ul>
+<link rel="stylesheet" href="./styles.css">
+<header>
+  <ul class="topnav">
+    <li class="navitem"><a href="/">Atmos Drive</a></li>
     <% if(currentUser) { %>
       <li><a href="/logout">Logout</a></li>
     <% } else { %>
-      <li><a href="/register">Register</a></li>
-      <li><a href="/login">Login</a></li>
+      <div class="navitem authbar">
+        <li class="navitem"><a href="/register">Register</a></li>
+        <li class="navitem"><a href="/login">Login</a></li>
+      </div>
     <% } %>
   </ul>
-</nav>
+</header>

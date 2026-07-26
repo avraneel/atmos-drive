@@ -7,8 +7,8 @@
   </head>
   <body>
     <%- include("partials/navbar") %>
-    <h2>Register</h2>
-    <form action="/register" method="post">
+    <form action="/register" method="post" class="authform">
+      <h2>Register</h2>
       <div class="formItem">
         <label for="fullname">Full Name *</label>
         <input type="text" name="fullname" id="fullname" required />
@@ -30,7 +30,7 @@
           required
         />
       </div>
-      <button>Submit</button>
+      <button class="submit">Submit</button>
     </form>
   </body>
 </html>
