@@ -6,6 +6,9 @@
     <title>Atmos Drive</title>
   </head>
   <body>
-    <%- include("partials/navbar") %>
+    <%- include("partials/navbar") %> 
+    <% if(currentUser) { %> 
+      <%- include("partials/fileUploadForm") %>
+    <% } %>
   </body>
 </html>

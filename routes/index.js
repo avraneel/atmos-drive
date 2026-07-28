@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
 import { prisma } from "../db/client.js";
 import passport from "passport";
+import multer from "multer";
 
 export const router = Router();
+const upload = new multer({ dest: "uploads/" });
 
 const alphaErr = `must contain alphabets only.`;
 const lengthErr = `must be between 1 and 30 characters`;
@@ -68,3 +70,5 @@ router.get("/logout", function (req, res, next) {
     res.redirect("/");
   });
 });
+
+router.post("/upload");
