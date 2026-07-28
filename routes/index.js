@@ -71,4 +71,7 @@ router.get("/logout", function (req, res, next) {
   });
 });
 
-router.post("/upload");
+router.post("/upload", upload.single("file"), function (req, res, next) {
+  const file = req.file;
+  res.redirect("/");
+});
