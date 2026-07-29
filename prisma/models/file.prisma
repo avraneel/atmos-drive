@@ -1,0 +1,7 @@
+model File {
+    id          Int      @id @default(autoincrement())
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
+    title       String
+    upload_time DateTime
+}

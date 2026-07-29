@@ -120,11 +120,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.SessionScalarFieldEnum = {
+exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
-  sid: 'sid',
-  data: 'data',
-  expiresAt: 'expiresAt'
+  userId: 'userId',
+  title: 'title',
+  upload_time: 'upload_time'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -132,6 +132,13 @@ exports.Prisma.UserScalarFieldEnum = {
   fullname: 'fullname',
   username: 'username',
   password: 'password'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sid: 'sid',
+  data: 'data',
+  expiresAt: 'expiresAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -146,8 +153,9 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Session: 'Session',
-  User: 'User'
+  File: 'File',
+  User: 'User',
+  Session: 'Session'
 };
 
 /**

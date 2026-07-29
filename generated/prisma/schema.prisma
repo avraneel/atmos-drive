@@ -1,3 +1,19 @@
+model File {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  title       String
+  upload_time DateTime
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  fullname String
+  username String @unique
+  password String
+  files    File[]
+}
+
 datasource db {
   provider = "postgresql"
 }
@@ -12,11 +28,4 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt DateTime
-}
-
-model User {
-  id       Int    @id @default(autoincrement())
-  fullname String
-  username String @unique
-  password String
 }
