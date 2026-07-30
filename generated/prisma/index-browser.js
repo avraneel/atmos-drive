@@ -132,9 +132,7 @@ exports.Prisma.FileScalarFieldEnum = {
 exports.Prisma.FolderScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  creationTime: 'creationTime',
-  path: 'path',
-  parentFolderId: 'parentFolderId'
+  creationTime: 'creationTime'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

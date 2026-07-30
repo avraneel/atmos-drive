@@ -1,5 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
+import fileController from "../controllers/fileController.js";
 
 const router = Router();
 
@@ -28,5 +29,6 @@ router.post("/file", upload.single("file"), function (req, res, next) {
 router.get("/folder", (req, res) => {
   res.render("newFolder");
 });
+router.post("/folder", fileController.createFolder);
 
 export default router;
