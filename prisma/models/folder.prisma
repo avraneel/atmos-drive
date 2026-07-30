@@ -1,0 +1,10 @@
+model Folder {
+    id             Int      @id @default(autoincrement())
+    name           String
+    creationTime   DateTime
+    files          File[]
+    folders        Folder[] @relation("Folder")
+    path           String
+    parentFolder   Folder   @relation("Folder", fields: [parentFolderId], references: [id])
+    parentFolderId Int
+}
