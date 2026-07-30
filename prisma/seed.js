@@ -15,7 +15,6 @@ async function main() {
     create: {
       name: "/",
       creationTime: new Date(),
-      parentFolderId: 2,
     },
   });
 }

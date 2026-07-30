@@ -21,10 +21,7 @@ const upload = new multer({ storage: storage });
 router.get("/file", (req, res) => {
   res.render("uploadFile");
 });
-router.post("/file", upload.single("file"), function (req, res, next) {
-  const file = req.file;
-  res.redirect("/");
-});
+router.post("/file", upload.single("file"), fileController.addFileToDb);
 
 router.get("/folder", (req, res) => {
   res.render("newFolder");
