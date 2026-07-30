@@ -7,8 +7,12 @@
   </head>
   <body>
     <%- include("partials/navbar") %> 
+    <main class="main">
     <% if(currentUser) { %> 
+      <%- include("partials/sidebar.ejs") %>
       <%- include("partials/fileUploadForm") %>
+      <%- include("partials/folder.ejs") %>
     <% } %>
+    </main>
   </body>
 </html>

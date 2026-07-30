@@ -68,3 +68,24 @@ textarea {
   display: grid;
   gap: 0.5rem;
 }
+
+.main {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.sidebar {
+  border-right: 5px solid white;
+  padding: 1rem;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+}
