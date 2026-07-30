@@ -123,8 +123,18 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  title: 'title',
-  upload_time: 'upload_time'
+  name: 'name',
+  paerentFolderId: 'paerentFolderId',
+  path: 'path',
+  uploadTime: 'uploadTime'
+};
+
+exports.Prisma.FolderScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  creationTime: 'creationTime',
+  path: 'path',
+  parentFolderId: 'parentFolderId'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -154,6 +164,7 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   File: 'File',
+  Folder: 'Folder',
   User: 'User',
   Session: 'Session'
 };

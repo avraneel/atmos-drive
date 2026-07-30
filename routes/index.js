@@ -4,8 +4,11 @@ import { body, validationResult, matchedData } from "express-validator";
 import { prisma } from "../db/client.js";
 import passport from "passport";
 import multer from "multer";
+import uploadRouter from "./upload.routes.js";
 
 export const router = Router();
+
+router.use("/upload", uploadRouter);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -19,7 +22,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = new multer({ storage: storage });
+export const upload = new multer({ storage: storage });
 
 const alphaErr = `must contain alphabets only.`;
 const lengthErr = `must be between 1 and 30 characters`;
@@ -51,7 +54,6 @@ router.post("/register", validateUser, async (req, res, next) => {
     console.log(errors);
     return res.status(400).render("register", { errors: errors.array() });
   }
-  console.log("this should not happening");
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   await prisma.user.create({
     data: {
@@ -82,9 +84,4 @@ router.get("/logout", function (req, res, next) {
     }
     res.redirect("/");
   });
-});
-
-router.post("/upload", upload.single("file"), function (req, res, next) {
-  const file = req.file;
-  res.redirect("/");
 });

@@ -1,9 +1,23 @@
 model File {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
-  title       String
-  upload_time DateTime
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [userId], references: [id])
+  userId          Int
+  name            String
+  parentFolder    Folder   @relation(fields: [paerentFolderId], references: [id])
+  paerentFolderId Int
+  path            String
+  uploadTime      DateTime
+}
+
+model Folder {
+  id             Int      @id @default(autoincrement())
+  name           String
+  creationTime   DateTime
+  files          File[]
+  folders        Folder[] @relation("Folder")
+  path           String
+  parentFolder   Folder   @relation("Folder", fields: [parentFolderId], references: [id])
+  parentFolderId Int
 }
 
 model User {
