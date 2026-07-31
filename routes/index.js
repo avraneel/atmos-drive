@@ -10,20 +10,6 @@ export const router = Router();
 
 router.use("/upload", uploadRouter);
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    let extArray = file.mimetype.split("/");
-    let extension = extArray[extArray.length - 1];
-    cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
-  },
-});
-
-export const upload = new multer({ storage: storage });
-
 const alphaErr = `must contain alphabets only.`;
 const lengthErr = `must be between 1 and 30 characters`;
 
@@ -41,7 +27,7 @@ const validateUser = [
     .withMessage(`Passwords must match`),
 ];
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   res.render("index");
 });
 
@@ -60,6 +46,11 @@ router.post("/register", validateUser, async (req, res, next) => {
       fullname: req.body.fullname,
       username: req.body.username,
       password: hashedPassword,
+      folders: {
+        create: {
+          name: "/",
+        },
+      },
     },
   });
   res.redirect("/login");

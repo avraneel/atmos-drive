@@ -5,8 +5,11 @@ const fileController = {
     await prisma.folder.create({
       data: {
         name: req.body.foldername,
-        creationTime: new Date(),
-        parentFolderId: 1,
+        owner: {
+          connect: {
+            id: res.locals.currentUser.id,
+          },
+        },
       },
     });
     res.redirect("/");
@@ -16,18 +19,16 @@ const fileController = {
     (await prisma.file.create({
       data: {
         name: req.file.filename,
-        user: {
+        owner: {
           connect: {
-            username: res.locals.currentUser.username,
+            id: res.locals.currentUser.id,
           },
         },
         parentFolder: {
           connect: {
-            id: 4,
+            id: 2,
           },
         },
-        path: req.file.path,
-        uploadTime: new Date(),
       },
     }),
       res.redirect("/"));

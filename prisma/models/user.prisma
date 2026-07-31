@@ -1,7 +1,8 @@
 model User {
-    id       Int    @id @default(autoincrement())
+    id       Int      @id @default(autoincrement())
     fullname String
-    username String @unique
+    username String   @unique
     password String
     files    File[]
+    folders  Folder[]
 }
