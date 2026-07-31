@@ -1,7 +1,7 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
-import { prisma } from "../db/client.js";
+import prisma from "../db/client.js";
 import passport from "passport";
 import multer from "multer";
 import uploadRouter from "./upload.routes.js";
@@ -28,7 +28,27 @@ const validateUser = [
 ];
 
 router.get("/", async (req, res) => {
-  res.render("index");
+  const fileObjectList = await prisma.file.findMany({
+    where: {
+      ownerId: res.locals.currentUser.id,
+    },
+  });
+  const folderObjectList = await prisma.folder.findMany({
+    where: {
+      ownerId: res.locals.currentUser.id,
+    },
+  });
+  const elements = [];
+  console.log(fileObjectList);
+  console.log(folderObjectList);
+  folderObjectList.forEach((item) => {
+    elements.push(item.name);
+  });
+  fileObjectList.forEach((item) => {
+    elements.push(item.name);
+  });
+  console.log(elements);
+  res.render("userhome", { elements: elements });
 });
 
 router.get("/register", (req, res) => {

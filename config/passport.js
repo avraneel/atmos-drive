@@ -1,7 +1,7 @@
 import passport from "passport";
 import pkg from "passport-local";
 import bcrypt from "bcryptjs";
-import { prisma } from "../db/client.js";
+import prisma from "../db/client.js";
 
 const LocalStrategy = pkg.Strategy;
 

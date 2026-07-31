@@ -5,7 +5,7 @@ import "./config/passport.js";
 import express from "express";
 import session from "express-session";
 import multer from "multer";
-import { prisma } from "./db/client.js";
+import prisma from "./db/client.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
 import { router } from "./routes/index.js";
