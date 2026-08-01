@@ -15,6 +15,7 @@ router.use("/user/", userRouter);
 
 router.get("/", async (req, res) => {
   if (res.locals.currentUser) {
+    console.log(res.locals.currentUser.username);
     res.redirect("/user/" + res.locals.currentUser.username);
   } else {
     res.render("index");

@@ -26,7 +26,7 @@ const fileController = {
         },
         parentFolder: {
           connect: {
-            id: 2,
+            id: 6,
           },
         },
       },

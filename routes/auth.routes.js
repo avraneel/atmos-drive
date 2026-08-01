@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
+import prisma from "../db/client.js";
 
 const router = Router();
 
@@ -41,6 +42,7 @@ router.post("/register", validateUser, async (req, res, next) => {
       folders: {
         create: {
           name: "home",
+          path: "/home/",
         },
       },
     },
@@ -58,7 +60,7 @@ router.post(
     failureMessage: true,
   }),
   function (req, res) {
-    res.redirect("/user/" + req.user.username);
+    res.redirect("/user/" + req.user.username + "/home");
   },
 );
 

@@ -15,13 +15,15 @@ const viewController = {
     });
     const elements = [];
     folderObjectList.forEach((item) => {
-      elements.push(item.name);
+      elements.push({ name: item.name, type: "folder" });
     });
     fileObjectList.forEach((item) => {
-      elements.push(item.name);
+      elements.push({ name: item.name, type: "file" });
     });
     res.render("userhome", { username: username, elements: elements });
   },
+
+  getPath: async (req, res) => {},
 };
 
 export default viewController;
