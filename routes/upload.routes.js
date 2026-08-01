@@ -19,12 +19,14 @@ const storage = multer.diskStorage({
 const upload = new multer({ storage: storage });
 
 router.get("/file", (req, res) => {
-  res.render("uploadFile");
+  const username = res.locals.currentUser.username;
+  res.render("uploadFile", { username: username });
 });
 router.post("/file", upload.single("file"), fileController.addFileToDb);
 
 router.get("/folder", (req, res) => {
-  res.render("newFolder");
+  const username = res.locals.currentUser.username;
+  res.render("newFolder", { username: username });
 });
 router.post("/folder", fileController.createFolder);
 

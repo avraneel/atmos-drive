@@ -6,10 +6,17 @@
     <title></title>
   </head>
   <body>
-    <ul>
-        <% elements.forEach(element => { %>
-            <li><%= element %></li>
-        <% }); %>
-    </ul>
+    <%- include("partials/navbar") %>
+    <main class="main">
+        <%- include("partials/sidebar.ejs", { username: username }) %>
+        <div class="content">
+            <h1>Welcome, <%= username %></h1>
+            <ul>
+                <% elements.forEach(element => { %>
+                    <li><%= element %></li>
+                <% }); %>
+            </ul>
+        </div>
+    </main>
   </body>
 </html>
