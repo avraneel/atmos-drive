@@ -60,7 +60,7 @@ router.post(
     failureMessage: true,
   }),
   function (req, res) {
-    res.redirect("/user/" + req.user.username + "/home");
+    res.redirect("/user/" + req.user.username);
   },
 );
 
