@@ -42,7 +42,7 @@ router.post("/register", validateUser, async (req, res, next) => {
       folders: {
         create: {
           name: "home",
-          path: "/home/",
+          path: "/home",
         },
       },
     },
