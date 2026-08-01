@@ -25,6 +25,7 @@ const validateUser = [
 router.get("/register", (req, res) => {
   res.render("register");
 });
+
 router.post("/register", validateUser, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -39,7 +40,7 @@ router.post("/register", validateUser, async (req, res, next) => {
       password: hashedPassword,
       folders: {
         create: {
-          name: "/",
+          name: "home",
         },
       },
     },
