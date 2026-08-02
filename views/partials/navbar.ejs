@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="/styles.css">
 <nav class="topnav">
   <ul>
-    <li class="navitem"><a href="/">Atmos Drive</a></li>
     <% if(currentUser) { %>
+      <li class="navitem"><a href="./drive">Atmos Drive</a></li>
       <li class="navitem"><%= currentUser.fullname %></li>
       <li class="navitem"><a href="/auth/logout">Logout</a></li>
     <% } else { %>
+      <li class="navitem"><a href="/">Atmos Drive</a></li>
       <div class="navitem authbar">
         <li class="navitem"><a href="/auth/register">Register</a></li>
         <li class="navitem"><a href="/auth/login">Login</a></li>

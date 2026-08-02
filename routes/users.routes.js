@@ -7,6 +7,6 @@ const router = Router();
 
 router.use("/:username/upload", uploadRouter);
 
-router.get("/:username{/*path}", viewController.listFiles);
+router.get("/:username/drive{/*path}", viewController.listFiles);
 
 export default router;

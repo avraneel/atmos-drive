@@ -1,4 +1,5 @@
 import prisma from "../db/client.js";
+import { uploadFile } from "../services/file.service.js";
 
 const controller = {
   getFolderForm: (req, res) => {
@@ -21,7 +22,7 @@ const controller = {
         },
       },
     });
-    res.redirect("/");
+    res.redirect("../drive");
   },
 
   getFileForm: (req, res) => {
@@ -30,22 +31,8 @@ const controller = {
   },
 
   addFileToDb: async (req, res) => {
-    (await prisma.file.create({
-      data: {
-        name: req.file.filename,
-        owner: {
-          connect: {
-            id: res.locals.currentUser.id,
-          },
-        },
-        parentFolder: {
-          connect: {
-            id: 6,
-          },
-        },
-      },
-    }),
-      res.redirect("/"));
+    await uploadFile(req.file, res.locals.currentUser);
+    res.redirect("../drive");
   },
 
   getPath: (req, res) => {},

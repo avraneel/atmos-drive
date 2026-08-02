@@ -1,6 +1,5 @@
 import { Router } from "express";
 import passport from "passport";
-import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
 import prisma from "../db/client.js";
 import authController from "../controllers/auth.controller.js";
@@ -25,28 +24,7 @@ const validateUser = [
 ];
 
 router.get("/register", authController.getRegister);
-
-router.post("/register", validateUser, async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    return res.status(400).render("register", { errors: errors.array() });
-  }
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  await prisma.user.create({
-    data: {
-      fullname: req.body.fullname,
-      username: req.body.username,
-      password: hashedPassword,
-      folders: {
-        create: {
-          name: req.body.username,
-        },
-      },
-    },
-  });
-  res.redirect("/auth/login");
-});
+router.post("/register", validateUser, authController.registerUser);
 
 router.get("/login", authController.getLogin);
 router.post(
@@ -56,7 +34,8 @@ router.post(
     failureMessage: true,
   }),
   function (req, res) {
-    res.redirect("/user/" + req.user.username);
+    res.locals.cwd = req.user.username;
+    res.redirect(`/user/${req.user.username}/drive/`);
   },
 );
 

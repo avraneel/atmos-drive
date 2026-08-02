@@ -2,14 +2,22 @@ import prisma from "../db/client.js";
 
 const viewController = {
   listFiles: async (req, res) => {
+    console.log(req.params);
     const username = req.params.username;
     const path = req.params.path || "";
     const baseUrl = req.baseUrl + "/" + username + path;
+    const cwd = await prisma.folder.findFirst({
+      where: {
+        ownerId: res.locals.currentUser.id,
+        parentFolderId: null,
+      },
+    });
     const fileObjectList = await prisma.file.findMany({
       where: {
         ownerId: res.locals.currentUser.id,
       },
     });
+    console.log(fileObjectList);
     const folderObjectList = await prisma.folder.findMany({
       where: {
         ownerId: res.locals.currentUser.id,
@@ -27,10 +35,15 @@ const viewController = {
       elements.push({ name: item.name, type: "file" });
     });
     res.locals.pathToAdd = req.originalUrl;
+    console.log(res.locals.cwd);
     res.render("userhome", { username: username, elements: elements });
   },
 
   getPath: async (req, res) => {},
 };
+
+async function listFilesInFolder(folderName) {
+  const folderId = prisma.folder.fin;
+}
 
 export default viewController;
