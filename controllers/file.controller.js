@@ -1,4 +1,3 @@
-import prisma from "../db/client.js";
 import { createFolder, uploadFile } from "../services/file.service.js";
 
 export function getFileUploadForm(req, res) {
