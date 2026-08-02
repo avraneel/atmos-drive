@@ -1,7 +1,13 @@
 import prisma from "../db/client.js";
 
-const fileController = {
+const controller = {
+  getFolderForm: (req, res) => {
+    const username = res.locals.currentUser.username;
+    res.render("newFolder", { username: username });
+  },
+
   createFolder: async (req, res) => {
+    const userid = res.locals.currentUser.id;
     await prisma.folder.create({
       data: {
         name: req.body.foldername,
@@ -10,9 +16,17 @@ const fileController = {
             id: res.locals.currentUser.id,
           },
         },
+        parentFolder: {
+          connect: {},
+        },
       },
     });
     res.redirect("/");
+  },
+
+  getFileForm: (req, res) => {
+    const username = res.locals.currentUser.username;
+    res.render("uploadFile", { username: username });
   },
 
   addFileToDb: async (req, res) => {
@@ -33,13 +47,8 @@ const fileController = {
     }),
       res.redirect("/"));
   },
+
+  getPath: (req, res) => {},
 };
 
-export default fileController;
-
-/**
- * I need to add files in here, and I need to store the files in my
- * multer disk to my database. how do I do that?
- * I also need to output the current path of the user, so user
- * should have a current path pointer to him
- */
+export default controller;
