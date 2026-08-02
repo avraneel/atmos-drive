@@ -36,22 +36,15 @@ export async function getFolder(userId, name, parentFolderId) {
   return folder;
 }
 
-export async function uploadFile(file, owner) {
-  await prisma.file.create({
+export async function uploadFile(userId, file, parentFolderId) {
+  const createdFile = await prisma.file.create({
     data: {
       name: file.filename,
-      owner: {
-        connect: {
-          id: owner.id,
-        },
-      },
-      parentFolder: {
-        connect: {
-          id: 20,
-        },
-      },
+      ownerId: userId,
+      parentFolderId: parentFolderId,
     },
   });
+  return createdFile;
 }
 
 /**

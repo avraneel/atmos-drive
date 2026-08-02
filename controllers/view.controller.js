@@ -7,6 +7,7 @@ export async function listItems(req, res) {
   /* In Express, the req object has two important properties
    * req.baseUrl = /user/ => the url BEFORE the router paths
    * req.path = /folder1/folder2/ => the url that the router is currently handling
+   * req.originalUrl could also work
    */
   const url = req.baseUrl + req.path;
   const prevUrl = getPrevUrl(url);

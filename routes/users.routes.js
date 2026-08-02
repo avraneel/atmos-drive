@@ -5,7 +5,7 @@ import { resolvePath } from "../middleware/resolvePath.js";
 
 const router = Router();
 
-router.use("/:username/upload", resolvePath, uploadRouter);
+router.use("/:username/drive{/*path}/upload", resolvePath, uploadRouter);
 router.get("/:username/drive{/*path}", resolvePath, listItems);
 
 export default router;

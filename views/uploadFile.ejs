@@ -12,7 +12,7 @@
         <%- include("partials/sidebar.ejs") %>
         <div class="uploadContainer">
           <h2>Upload Files</h2>
-          <form action="/user/<%= username %>/upload/file" method="post" enctype="multipart/form-data">
+          <form action="<%= url %>/upload/file" method="post" enctype="multipart/form-data">
             <div class="formItem">
               <label for="file">Upload File</label>
               <input type="file" name="file" id="file" />

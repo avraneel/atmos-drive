@@ -9,10 +9,10 @@
     <%- include("partials/navbar") %> 
     <main class="main">
         <% if(currentUser) { %> 
-            <%- include("partials/sidebar.ejs") %>
+            <%- include("partials/sidebar.ejs", {url: url}) %>
             <div>
                 <h2>Create Folder</h2>
-                <form action="/user/<%= username %>/upload/folder" method="post">
+                <form action="<%= url %>/upload/folder" method="post">
                     <div class="formItem">
                         <label for="foldername">Folder Name</label>
                         <input type="text" name="foldername" id="foldername" />

@@ -1,9 +1,10 @@
 import { Router } from "express";
 import multer from "multer";
-import fileController, {
+import {
   getCreateFolderForm,
   createFolderPost,
   getFileUploadForm,
+  uploadFilePost,
 } from "../controllers/file.controller.js";
 
 const router = Router();
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = new multer({ storage: storage });
 
 router.get("/file", getFileUploadForm);
-router.post("/file", upload.single("file"), fileController.addFileToDb);
+router.post("/file", upload.single("file"), uploadFilePost);
 router.get("/folder", getCreateFolderForm);
 router.post("/folder", createFolderPost);
 
