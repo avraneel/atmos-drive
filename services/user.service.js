@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 const service = {
   createUser: async (user) => {
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    console.log(user);
     const createdUser = await prisma.user.create({
       data: {
         fullname: user.fullname,

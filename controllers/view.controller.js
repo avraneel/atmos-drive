@@ -1,49 +1,32 @@
-import prisma from "../db/client.js";
+import { getFiles, getFolders } from "../services/file.service.js";
 
-const viewController = {
-  listFiles: async (req, res) => {
-    console.log(req.params);
-    const username = req.params.username;
-    const path = req.params.path || "";
-    const baseUrl = req.baseUrl + "/" + username + path;
-    const cwd = await prisma.folder.findFirst({
-      where: {
-        ownerId: res.locals.currentUser.id,
-        parentFolderId: null,
-      },
-    });
-    const fileObjectList = await prisma.file.findMany({
-      where: {
-        ownerId: res.locals.currentUser.id,
-      },
-    });
-    console.log(fileObjectList);
-    const folderObjectList = await prisma.folder.findMany({
-      where: {
-        ownerId: res.locals.currentUser.id,
-      },
-    });
-    const elements = [];
-    folderObjectList.forEach((item) => {
-      elements.push({
-        name: item.name,
-        baseUrl: baseUrl,
-        type: "folder",
-      });
-    });
-    fileObjectList.forEach((item) => {
-      elements.push({ name: item.name, type: "file" });
-    });
-    res.locals.pathToAdd = req.originalUrl;
-    console.log(res.locals.cwd);
-    res.render("userhome", { username: username, elements: elements });
-  },
+export async function listItems(req, res) {
+  const userId = req.user.id;
+  const folderId = res.locals.folderId;
 
-  getPath: async (req, res) => {},
-};
-
-async function listFilesInFolder(folderName) {
-  const folderId = prisma.folder.fin;
+  /* In Express, the req object has two important properties
+   * req.baseUrl = /user/ => the url BEFORE the router paths
+   * req.path = /folder1/folder2/ => the url that the router is currently handling
+   */
+  const url = req.baseUrl + req.path;
+  const prevUrl = getPrevUrl(url);
+  const files = await getFiles(userId, folderId);
+  const folders = await getFolders(userId, folderId);
+  const elements = [];
+  folders.forEach((item) => {
+    elements.push({ name: item.name, type: "folder" });
+  });
+  files.forEach((item) => {
+    elements.push({ name: item.name, type: "file" });
+  });
+  res.render("home", {
+    username: res.locals.currentUser.username,
+    url: url,
+    prevUrl: prevUrl,
+    elements: elements,
+  });
 }
 
-export default viewController;
+function getPrevUrl(url) {
+  return url.slice(0, url.lastIndexOf("/"));
+}

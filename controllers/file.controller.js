@@ -1,5 +1,23 @@
 import prisma from "../db/client.js";
-import { uploadFile } from "../services/file.service.js";
+import { createFolder, uploadFile } from "../services/file.service.js";
+
+export function getFileUploadForm(req, res) {
+  res.render("uploadFile", { username: res.locals.currentUser.username });
+}
+
+export async function createFolderPost(req, res) {
+  const folderId = res.locals.folderId;
+  const createdFolder = await createFolder(
+    req.user.id,
+    req.body.foldername,
+    folderId,
+  );
+  res.redirect(`/user/${req.user.username}/drive`);
+}
+
+export function getCreateFolderForm(req, res) {
+  res.render("newFolder", { username: res.locals.currentUser.username });
+}
 
 const controller = {
   getFolderForm: (req, res) => {

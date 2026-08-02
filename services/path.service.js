@@ -12,7 +12,6 @@ export async function getPath(folderId) {
     id = parentFolderId;
   }
   const pathString = path.join("/");
-  console.log(pathString);
   return pathString;
 }
 

@@ -1,12 +1,11 @@
 import { Router } from "express";
-import prisma from "../db/client.js";
 import uploadRouter from "./upload.routes.js";
-import viewController from "../controllers/view.controller.js";
+import { listItems } from "../controllers/view.controller.js";
+import { resolvePath } from "../middleware/resolvePath.js";
 
 const router = Router();
 
-router.use("/:username/upload", uploadRouter);
-
-router.get("/:username/drive{/*path}", viewController.listFiles);
+router.use("/:username/upload", resolvePath, uploadRouter);
+router.get("/:username/drive{/*path}", resolvePath, listItems);
 
 export default router;

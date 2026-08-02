@@ -1,7 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
 import { body, validationResult, matchedData } from "express-validator";
-import prisma from "../db/client.js";
 import authController from "../controllers/auth.controller.js";
 
 const router = Router();
@@ -25,7 +24,7 @@ const validateUser = [
 
 router.get("/register", authController.getRegister);
 router.post("/register", validateUser, authController.registerUser);
-
+router.get("/logout", authController.getLogout);
 router.get("/login", authController.getLogin);
 router.post(
   "/login",
@@ -34,11 +33,8 @@ router.post(
     failureMessage: true,
   }),
   function (req, res) {
-    res.locals.cwd = req.user.username;
-    res.redirect(`/user/${req.user.username}/drive/`);
+    res.redirect(`/user/${req.user.username}/drive`);
   },
 );
-
-router.get("/logout", authController.getLogout);
 
 export default router;

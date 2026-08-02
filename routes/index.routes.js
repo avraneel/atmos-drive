@@ -5,8 +5,8 @@ import userRouter from "./users.routes.js";
 
 export const router = Router();
 
-router.use("/user/", userRouter);
 router.use("/auth/", authRouter);
+router.use("/user/", userRouter);
 
 router.get("/", async (req, res) => {
   if (res.locals.currentUser) {
