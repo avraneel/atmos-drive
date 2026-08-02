@@ -1,7 +1,6 @@
 model Folder {
     id             Int      @id @default(autoincrement())
     name           String
-    path           String
     ownerId        Int
     owner          User     @relation(fields: [ownerId], references: [id])
     parentFolderId Int?

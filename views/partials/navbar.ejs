@@ -4,11 +4,11 @@
     <li class="navitem"><a href="/">Atmos Drive</a></li>
     <% if(currentUser) { %>
       <li class="navitem"><%= currentUser.fullname %></li>
-      <li class="navitem"><a href="/logout">Logout</a></li>
+      <li class="navitem"><a href="/auth/logout">Logout</a></li>
     <% } else { %>
       <div class="navitem authbar">
-        <li class="navitem"><a href="/register">Register</a></li>
-        <li class="navitem"><a href="/login">Login</a></li>
+        <li class="navitem"><a href="/auth/register">Register</a></li>
+        <li class="navitem"><a href="/auth/login">Login</a></li>
       </div>
     <% } %>
   </ul>

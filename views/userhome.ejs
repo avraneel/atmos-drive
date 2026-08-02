@@ -15,7 +15,10 @@
               <% elements.forEach(element => { %>
                 <article class="item">
                   <% if(element.type == "folder") { %>
-                    <a href="<%= element.name %>"><%= element.name %></a>
+                    <a href="<%= element.baseUrl %>/<%= element.name %>"><%= element.name %></a>
+                    <form action="" method="post" class="buttonPanel">
+                      <button>Delete</button>
+                    </form>
                   <% } else { %>
                     <%= element.name %>
                   <% }; %>

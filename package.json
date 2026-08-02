@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file=.env --watch app.js",
+    "migrate": "npx prisma migrate dev --name 'update schema' && npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

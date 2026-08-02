@@ -3,6 +3,7 @@ import passport from "passport";
 import bcrypt from "bcryptjs";
 import { body, validationResult, matchedData } from "express-validator";
 import prisma from "../db/client.js";
+import authController from "../controllers/auth.controller.js";
 
 const router = Router();
 
@@ -23,9 +24,7 @@ const validateUser = [
     .withMessage(`Passwords must match`),
 ];
 
-router.get("/register", (req, res) => {
-  res.render("register");
-});
+router.get("/register", authController.getRegister);
 
 router.post("/register", validateUser, async (req, res, next) => {
   const errors = validationResult(req);
@@ -41,18 +40,15 @@ router.post("/register", validateUser, async (req, res, next) => {
       password: hashedPassword,
       folders: {
         create: {
-          name: "home",
-          path: "/home",
+          name: req.body.username,
         },
       },
     },
   });
-  res.redirect("/login");
+  res.redirect("/auth/login");
 });
 
-router.get("/login", (req, res) => {
-  res.render("login");
-});
+router.get("/login", authController.getLogin);
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -64,13 +60,6 @@ router.post(
   },
 );
 
-router.get("/logout", function (req, res, next) {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
+router.get("/logout", authController.getLogout);
 
 export default router;

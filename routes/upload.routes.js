@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import fileController from "../controllers/fileController.js";
+import fileController from "../controllers/file.controller.js";
 
 const router = Router();
 
@@ -18,16 +18,10 @@ const storage = multer.diskStorage({
 
 const upload = new multer({ storage: storage });
 
-router.get("/file", (req, res) => {
-  const username = res.locals.currentUser.username;
-  res.render("uploadFile", { username: username });
-});
+router.get("/file", fileController.getFileForm);
 router.post("/file", upload.single("file"), fileController.addFileToDb);
 
-router.get("/folder", (req, res) => {
-  const username = res.locals.currentUser.username;
-  res.render("newFolder", { username: username });
-});
+router.get("/folder", fileController.getFolderForm);
 router.post("/folder", fileController.createFolder);
 
 export default router;
