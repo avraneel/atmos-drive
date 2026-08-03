@@ -7,6 +7,7 @@ import { getFolder, getRootFolder } from "../services/file.service.js";
 export async function resolvePath(req, res, next) {
   const userId = req.user.id;
   const pathArray = req.params.path;
+  console.log(pathArray);
   // First get the id of root folder for a user
   let parentFolder = await getRootFolder(userId);
   let parentFolderId = parentFolder.id;

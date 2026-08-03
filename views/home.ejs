@@ -17,19 +17,20 @@
                 <article class="item">
                   <% if(element.type == "folder") { %>
                     <a href="<%= url %>/<%= element.name %>"><%= element.name %></a>
-                    <form action="" method="post" class="buttonPanel">
-                      <button>Delete</button>
-                    </form>
+                      <form action="<%= url %>/delete-folder" method="post">
+                        <input type="hidden" name="folderId" value="<%= element.id %>">
+                        <button class="delete">Delete</button>
+                      </form>
                   <% } else { %>
                     <%= element.name %>
                   <% }; %>
                   <% if(element.type == "file") { %>
                     <div class="buttonPanel">
-                      <form action="/delete" method="post">
+                      <form action="<%= url %>/delete-file" method="post">
                         <input type="hidden" name="fileId" value="<%= element.id %>">
                         <button class="delete">Delete</button>
                       </form>
-                      <form action="/info" method="post">
+                      <form action="<%= url %>/info" method="post">
                         <input type="hidden" name="fileId" value="<%= element.id %>">
                         <button clas="info">Information</button>
                       </form>

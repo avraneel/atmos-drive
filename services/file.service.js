@@ -71,8 +71,9 @@ export async function deleteFile(userId, fileId) {
 
 // TODO check for 2 users with same folder in same path if i delete one
 // other should not delete
-async function deleteFolder(userId, folderIdToDelete, parentFolderId) {
-  const deleteFiles = await prisma.files.deleteMany({
+export async function deleteFolder(userId, folderIdToDelete) {
+  console.log(folderIdToDelete);
+  const deleteFiles = await prisma.file.deleteMany({
     where: {
       parentFolderId: folderIdToDelete,
     },
