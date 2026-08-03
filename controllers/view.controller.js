@@ -18,7 +18,7 @@ export async function listItems(req, res) {
     elements.push({ name: item.name, type: "folder" });
   });
   files.forEach((item) => {
-    elements.push({ name: item.name, type: "file" });
+    elements.push({ id: item.id, name: item.name, type: "file" });
   });
   res.render("home", {
     username: res.locals.currentUser.username,

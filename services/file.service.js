@@ -51,17 +51,39 @@ export async function uploadFile(userId, file, parentFolderId) {
  * @desc Lists all files having the same folder as parent owned
  * by the same user
  */
-export async function getFiles(userId, folderId) {
+export async function getFiles(userId, parentFolderId) {
   const files = await prisma.file.findMany({
     where: {
       ownerId: userId,
-      parentFolderId: folderId,
+      parentFolderId: parentFolderId,
     },
   });
   return files;
 }
 
-async function deleteFolder(params) {}
+export async function deleteFile(userId, fileId) {
+  const deleteFile = await prisma.file.delete({
+    where: {
+      id: fileId,
+    },
+  });
+}
+
+// TODO check for 2 users with same folder in same path if i delete one
+// other should not delete
+async function deleteFolder(userId, folderIdToDelete, parentFolderId) {
+  const deleteFiles = await prisma.files.deleteMany({
+    where: {
+      parentFolderId: folderIdToDelete,
+    },
+  });
+  const deleteFolder = await prisma.folder.delete({
+    where: {
+      id: folderIdToDelete,
+    },
+  });
+  return deleteFolder;
+}
 
 /** @desc For a given user and parent folder, list all folders inside it */
 export async function getFolders(userId, folderId) {

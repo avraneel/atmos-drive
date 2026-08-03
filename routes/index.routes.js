@@ -10,7 +10,7 @@ router.use("/user/", userRouter);
 
 router.get("/", async (req, res) => {
   if (res.locals.currentUser) {
-    res.redirect("/user/" + res.locals.currentUser.username);
+    res.redirect("/user/" + res.locals.currentUser.username + "/drive");
   } else {
     res.render("index");
   }
