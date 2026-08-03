@@ -1,10 +1,12 @@
 model File {
-  id             Int    @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   name           String
+  size           Int
+  uploadTime     DateTime
   ownerId        Int
-  owner          User   @relation(fields: [ownerId], references: [id])
+  owner          User     @relation(fields: [ownerId], references: [id])
   parentFolderId Int
-  parentFolder   Folder @relation(fields: [parentFolderId], references: [id])
+  parentFolder   Folder   @relation(fields: [parentFolderId], references: [id])
 }
 
 model Folder {

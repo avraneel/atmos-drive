@@ -40,6 +40,8 @@ export async function uploadFile(userId, file, parentFolderId) {
   const createdFile = await prisma.file.create({
     data: {
       name: file.filename,
+      size: file.size,
+      uploadTime: new Date(),
       ownerId: userId,
       parentFolderId: parentFolderId,
     },
@@ -95,4 +97,19 @@ export async function getFolders(userId, folderId) {
     },
   });
   return folders;
+}
+
+export async function getFileInfo(userId, fileId) {
+  const fileInfo = await prisma.file.findFirst({
+    select: {
+      name: true,
+      size: true,
+      uploadTime: true,
+    },
+    where: {
+      id: fileId,
+    },
+  });
+
+  return fileInfo;
 }

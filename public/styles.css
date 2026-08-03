@@ -100,3 +100,9 @@ textarea {
   justify-content: space-between;
   align-items: center;
 }
+
+.buttonPanel {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

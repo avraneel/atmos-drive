@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info | Atmos Drive</title>
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+    <main>
+      <div class="fileInformation">
+        <h2>File Information</h2>
+        <p><b>Full name: </b><%= item.name %></p>
+        <p><b>Size: </b><%= item.size %></p>
+        <p><b>Time Uploaded: </b><%= item.uploadTime %></p>
+        <a href="<%= prevUrl %>">Back</a>
+      </div>
+    </main>
+  </body>
+</html>
