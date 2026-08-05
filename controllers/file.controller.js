@@ -34,12 +34,14 @@ export async function uploadFilePost(req, res) {
         cacheControl: "3600",
         upsert: false,
       });
+    console.log(data);
     if (error) {
       throw error;
+    } else {
+      const newUrl = getPrevUrl(req.baseUrl);
+      const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
+      res.redirect(`${newUrl}`);
     }
-    const newUrl = getPrevUrl(req.baseUrl);
-    const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
-    res.redirect(`${newUrl}`);
   } catch (error) {
     res.status(500).json({ error: error });
   }
