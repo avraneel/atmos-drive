@@ -5,6 +5,8 @@ import {
   getFileInfo,
   uploadFile,
 } from "../services/file.service.js";
+import { decode } from "base64-arraybuffer";
+import supabase from "../db/supabase.client.js";
 
 export function getFileUploadForm(req, res) {
   /**
@@ -21,10 +23,26 @@ export function getFileUploadForm(req, res) {
 }
 
 export async function uploadFilePost(req, res) {
-  const folderId = res.locals.folderId;
-  const newUrl = getPrevUrl(req.baseUrl);
-  const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
-  res.redirect(`${newUrl}`);
+  try {
+    const folderId = res.locals.folderId;
+    const file = req.file;
+    console.log(file);
+    const fileBase64 = decode(file.buffer.toString("base64"));
+    const { data, error } = await supabase.storage
+      .from("upload")
+      .upload(file.originalname, fileBase64, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+    if (error) {
+      throw error;
+    }
+    const newUrl = getPrevUrl(req.baseUrl);
+    const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
+    res.redirect(`${newUrl}`);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
 }
 
 export async function deleteFilePost(req, res) {

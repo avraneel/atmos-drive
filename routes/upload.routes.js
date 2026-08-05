@@ -1,28 +1,25 @@
 import { Router } from "express";
-import multer from "multer";
+import upload from "../middleware/multer.js";
 import {
   getCreateFolderForm,
   createFolderPost,
   getFileUploadForm,
   uploadFilePost,
 } from "../controllers/file.controller.js";
-import upload from "../middleware/multer.js";
 
 const router = Router();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    let extArray = file.mimetype.split("/");
-    let extension = extArray[extArray.length - 1];
-    cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
-  },
-});
-
-const uploadm = new multer({ storage: storage });
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./uploads");
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     let extArray = file.mimetype.split("/");
+//     let extension = extArray[extArray.length - 1];
+//     cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
+//   },
+// });
 
 router.get("/file", getFileUploadForm);
 router.post("/file", upload.single("file"), uploadFilePost);
