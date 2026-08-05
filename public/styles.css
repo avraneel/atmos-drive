@@ -16,10 +16,28 @@ textarea {
   font-size: 100%;
 }
 
-/* topbar */
+a {
+  text-decoration: none;
+}
 
+/* colors */
+:root {
+  --black: #141414;
+  --yellow: #827721;
+  --grey: #bababa;
+}
+
+* {
+  color: var(--grey);
+}
+
+body {
+  background-color: var(--black);
+}
+
+/* topbar */
 .topnav ul {
-  background-color: #0d14e1;
+  border-bottom: 1px solid rgba(109, 109, 109, 0.687);
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0.5rem;
@@ -46,7 +64,6 @@ textarea {
   display: grid;
   padding: 1rem;
   justify-content: center;
-  border: 1px solid red;
   gap: 2rem;
 }
 
@@ -75,7 +92,7 @@ textarea {
 }
 
 .sidebar {
-  border-right: 5px solid white;
+  border-right: 1px solid white;
   padding: 1rem;
 }
 

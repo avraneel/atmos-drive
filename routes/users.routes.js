@@ -6,6 +6,7 @@ import {
   deleteFilePost,
   deleteFolderPost,
   displayFileInfoPost,
+  downloadFile,
 } from "../controllers/file.controller.js";
 
 const router = Router();
@@ -15,5 +16,6 @@ router.get("/:username/drive{/*path}", resolvePath, listItems);
 router.post("/:username/drive{/*path}/delete-file", deleteFilePost);
 router.post("/:username/drive{/*path}/delete-folder", deleteFolderPost);
 router.post("/:username/drive{/*path}/info", displayFileInfoPost);
+router.post("/:username/drive{/*path}/download", downloadFile);
 
 export default router;

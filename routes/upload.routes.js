@@ -6,6 +6,7 @@ import {
   getFileUploadForm,
   uploadFilePost,
 } from "../controllers/file.controller.js";
+import upload from "../middleware/multer.js";
 
 const router = Router();
 
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = new multer({ storage: storage });
+const uploadm = new multer({ storage: storage });
 
 router.get("/file", getFileUploadForm);
 router.post("/file", upload.single("file"), uploadFilePost);

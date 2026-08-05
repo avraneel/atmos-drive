@@ -15,7 +15,6 @@ export function getFileUploadForm(req, res) {
    * extra /upload
    */
   const newUrl = getPrevUrl(req.baseUrl);
-  console.log(newUrl);
   res.render("uploadFile", {
     url: newUrl,
   });
@@ -23,9 +22,7 @@ export function getFileUploadForm(req, res) {
 
 export async function uploadFilePost(req, res) {
   const folderId = res.locals.folderId;
-  console.log(req.file);
   const newUrl = getPrevUrl(req.baseUrl);
-  console.log(req.user.id);
   const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
   res.redirect(`${newUrl}`);
 }
@@ -57,7 +54,6 @@ export async function createFolderPost(req, res) {
 
 export async function deleteFolderPost(req, res) {
   const folderId = Number(req.body.folderId);
-  console.log(folderId);
   const userId = req.user.id;
   const deletedFolder = await deleteFolder(userId, folderId);
   res.redirect(req.baseUrl + getPrevUrl(req.url));
@@ -67,7 +63,6 @@ export async function displayFileInfoPost(req, res) {
   const fileId = Number(req.body.fileId);
   const userId = req.user.id;
   const fileInfo = await getFileInfo(userId, fileId);
-  console.log(fileInfo);
   const item = {
     name: fileInfo.name,
     size: `${fileInfo.size} bytes`,
@@ -76,6 +71,14 @@ export async function displayFileInfoPost(req, res) {
   console.log(fileInfo.uploadTime.toTimeString());
   const prevUrl = getPrevUrl(req.url);
   res.render("info", { item: item, prevUrl: req.baseUrl + prevUrl });
+}
+
+export async function downloadFile(req, res) {
+  const fileId = Number(req.body.fileId);
+  const userId = req.user.id;
+  const file = await getFileInfo(userId, fileId);
+  const filePath = req.baseUrl + getPrevUrl(req.url);
+  res.download(filePath);
 }
 
 function getPrevUrl(url) {
