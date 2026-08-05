@@ -1,0 +1,13 @@
+:root {
+  --black: #141414;
+  --yellow: #827721;
+  --grey: #bababa;
+}
+
+* {
+  color: var(--grey);
+}
+
+body {
+  background-color: var(--black);
+}
