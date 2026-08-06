@@ -15,6 +15,7 @@ export async function listItems(req, res) {
   const folders = await getFolders(userId, folderId);
   const elements = [];
   folders.forEach((item) => {
+    const url = item.url;
     elements.push({ id: item.id, name: item.name, type: "folder" });
   });
   files.forEach((item) => {

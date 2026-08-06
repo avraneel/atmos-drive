@@ -32,7 +32,7 @@ export async function uploadFilePost(req, res) {
       .from("upload")
       .upload(file.originalname, fileBase64, {
         cacheControl: "3600",
-        upsert: false,
+        upsert: true,
       });
     console.log(data);
     if (error) {
@@ -48,10 +48,18 @@ export async function uploadFilePost(req, res) {
 }
 
 export async function deleteFilePost(req, res) {
-  const fileId = Number(req.body.fileId);
-  const userId = req.user.id;
-  const deletedFile = await deleteFile(userId, fileId);
-  res.redirect(req.baseUrl + getPrevUrl(req.url));
+  try {
+    const fileId = Number(req.body.fileId);
+    const userId = req.user.id;
+    const { data, error } = await supabase.storage
+      .from("avatars")
+      .remove([`upload/${fileId}`]);
+    console.log(data);
+    const deletedFile = await deleteFile(userId, fileId);
+    res.redirect(req.baseUrl + getPrevUrl(req.url));
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
 }
 
 export function getCreateFolderForm(req, res) {
