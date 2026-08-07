@@ -36,7 +36,7 @@ export async function getFolder(userId, name, parentFolderId) {
   return folder;
 }
 
-export async function uploadFile(userId, file, parentFolderId) {
+export async function uploadFile(userId, file, parentFolderId, fullPath) {
   const createdFile = await prisma.file.create({
     data: {
       name: file.originalname,
@@ -44,7 +44,7 @@ export async function uploadFile(userId, file, parentFolderId) {
       uploadTime: new Date(),
       ownerId: userId,
       parentFolderId: parentFolderId,
-      url: "abc",
+      url: fullPath,
     },
   });
   return createdFile;

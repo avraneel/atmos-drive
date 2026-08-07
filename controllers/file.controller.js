@@ -39,7 +39,12 @@ export async function uploadFilePost(req, res) {
       throw error;
     } else {
       const newUrl = getPrevUrl(req.baseUrl);
-      const uploadedFile = await uploadFile(req.user.id, req.file, folderId);
+      const uploadedFile = await uploadFile(
+        req.user.id,
+        req.file,
+        folderId,
+        data.fullPath,
+      );
       res.redirect(`${newUrl}`);
     }
   } catch (error) {
@@ -72,6 +77,7 @@ export function getCreateFolderForm(req, res) {
 export async function createFolderPost(req, res) {
   const folderId = res.locals.folderId;
   const newUrl = getPrevUrl(req.baseUrl);
+  console.log(req.baseUrl);
   const createdFolder = await createFolder(
     req.user.id,
     req.body.foldername,
