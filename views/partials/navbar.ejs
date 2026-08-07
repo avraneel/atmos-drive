@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="/styles.css">
 <nav class="topnav">
   <ul>
     <% if(currentUser) { %>
       <li class="navitem">
-        <div class="home-component">
+        <div class="component">
         <a href="/user/<%= currentUser.fullname %>/drive">
           <img src="/favicon.svg" alt="icon">
           Atmos Drive

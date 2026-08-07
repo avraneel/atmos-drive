@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atmos Drive</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include("partials/navbar") %>
@@ -12,37 +13,49 @@
         <%- include("partials/sidebar.ejs", { url: url }) %>
         <div class="content">
             <h1 class="title">Welcome, <%= username %></h1>
-            <div class="fileList">
-              <article class="item"><a href="<%= prevUrl %>">Back</a></article>
-              <% elements.forEach(element => { %>
-                <article class="item">
-                  <% if(element.type == "folder") { %>
-                    <a href="<%= url %>/<%= element.name %>"><%= element.name %></a>
+            <div class="drive-container">
+              <div class="component">
+                <a href="<%= prevUrl %>">
+                  <img src="/back.svg" alt="back">
+                  Back
+                </a>
+              </div>
+              <div class="file-list">
+                <% elements.forEach(element => { %>
+                  <article class="item">
+                    <% if(element.type == "folder") { %>
+                        <div class="component">
+                          <a href="<%= url %>/<%= element.name %>">
+                            <img src="/svg/folder.svg" alt="folder-icon">
+                            <%= element.name %>
+                          </a>
+                        </div>
                       <form action="<%= url %>/delete-folder" method="post">
                         <input type="hidden" name="folderId" value="<%= element.id %>">
                         <button class="delete">Delete</button>
                       </form>
-                  <% } else { %>
-                    <%= element.name %>
-                  <% }; %>
-                  <% if(element.type == "file") { %>
-                    <div class="buttonPanel">
-                      <form action="<%= url %>/delete-file" method="post">
-                        <input type="hidden" name="fileId" value="<%= element.id %>">
-                        <button class="delete">Delete</button>
+                    <% } else { %>
+                      <%= element.name %>
+                    <% }; %>
+                    <% if(element.type == "file") { %>
+                      <div class="buttonPanel">
+                        <form action="<%= url %>/delete-file" method="post">
+                          <input type="hidden" name="fileId" value="<%= element.id %>">
+                          <button class="delete">Delete</button>
+                        </form>
+                        <form action="<%= url %>/info" method="post">
+                          <input type="hidden" name="fileId" value="<%= element.id %>">
+                          <button clas="info">Information</button>
+                        </form>
+                        <form action="<%= url %>/download" method="post">
+                          <input type="hidden" name="fileId" value="<%= element.id %>">
+                          <button clas="info">Download</button>
+                        </form>
                       </form>
-                      <form action="<%= url %>/info" method="post">
-                        <input type="hidden" name="fileId" value="<%= element.id %>">
-                        <button clas="info">Information</button>
-                      </form>
-                      <form action="<%= url %>/download" method="post">
-                        <input type="hidden" name="fileId" value="<%= element.id %>">
-                        <button clas="info">Download</button>
-                      </form>
-                    </form>
-                  <% }; %>
-                </article>
-              <% }); %>
+                    <% }; %>
+                  </article>
+                <% }); %>
+              </div>
             </div>
         </div>
     </main>

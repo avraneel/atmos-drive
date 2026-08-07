@@ -1,6 +1,20 @@
 <nav class="sidebar">
   <ul>
-    <li><a href="<%= url %>/upload/folder">New Folder</a></li>
-    <li><a href="<%= url %>/upload/file">Upload</a></li>
+    <li>
+      <div class="component">
+        <a href="<%= url %>/upload/folder">
+          <img src="/svg/newfolder.svg" alt="new-folder-icon" />
+          New Folder
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="component">
+        <a href="<%= url %>/upload/file">
+          <img src="/svg/upload.svg" alt="upload-icon" />
+          Upload
+        </a>
+      </div>
+    </li>
   </ul>
 </nav>

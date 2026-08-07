@@ -19,7 +19,6 @@ a:hover {
   border-bottom: 1px solid rgba(109, 109, 109, 0.687);
 }
 
-/* topbar */
 .topnav ul {
   display: flex;
   justify-content: space-between;
@@ -35,12 +34,20 @@ a:hover {
   align-items: center;
 }
 
+.content {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .navitem {
   list-style-type: none;
 }
 
-.home-component a {
+.component a {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -84,7 +91,7 @@ a:hover {
 }
 
 .sidebar {
-  border-right: 1px solid rgba(109, 109, 109, 0.687);
+  border-right: 1px solid var(--border-color);
   padding: 1rem 1rem 1rem 2rem;
 }
 
@@ -99,8 +106,17 @@ a:hover {
   text-decoration: none;
 }
 
-.fileList {
+.drive-container {
   display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.file-list {
+  display: grid;
+  gap: 0.5rem;
 }
 
 .item {
@@ -108,6 +124,13 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 10px;
+}
+
+.item:hover {
+  cursor: pointer;
+  background-color: rgba(62, 62, 62, 0.515);
+  transition: background-color 300ms;
 }
 
 .buttonPanel {
