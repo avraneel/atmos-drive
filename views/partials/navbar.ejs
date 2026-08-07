@@ -2,7 +2,14 @@
 <nav class="topnav">
   <ul>
     <% if(currentUser) { %>
-      <li class="navitem"><a href="/user/<%= currentUser.fullname %>/drive">Atmos Drive</a></li>
+      <li class="navitem">
+        <div class="home-component">
+        <a href="/user/<%= currentUser.fullname %>/drive">
+          <img src="/favicon.svg" alt="icon">
+          Atmos Drive
+        </a>
+        </div>
+      </li>
       <li class="navitem"><%= currentUser.fullname %></li>
       <li class="navitem"><a href="/auth/logout">Logout</a></li>
     <% } else { %>

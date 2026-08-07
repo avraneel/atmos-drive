@@ -1,11 +1,12 @@
 :root {
   --black: #141414;
   --yellow: #827721;
-  --grey: #bababa;
+  --muted-white: #bababa;
+  --active-white: #e4e3e3;
 }
 
 * {
-  color: var(--grey);
+  color: var(--muted-white);
 }
 
 body {
