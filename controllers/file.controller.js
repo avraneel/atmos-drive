@@ -121,9 +121,30 @@ export async function displayFileInfoPost(req, res) {
 export async function downloadFile(req, res) {
   const fileId = Number(req.body.fileId);
   const userId = req.user.id;
-  const file = await getFileInfo(userId, fileId);
-  const filePath = req.baseUrl + getPrevUrl(req.url);
-  res.download(filePath);
+  const { url } = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+    },
+    select: {
+      url: true,
+    },
+  });
+  const supabasePath = `${url.slice(url.indexOf("/") + 1)}`;
+  try {
+    const { data, error } = await supabase.storage
+      .from("uploads")
+      .createSignedUrl(`${supabasePath}`, 60, {
+        download: true,
+      });
+    console.log(data);
+    if (error) {
+      throw error;
+    } else {
+      res.redirect(data.signedUrl);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
 }
 
 function getPrevUrl(url) {
