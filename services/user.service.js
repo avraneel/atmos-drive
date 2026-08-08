@@ -1,5 +1,6 @@
 import prisma from "../db/client.js";
 import bcrypt from "bcryptjs";
+import supabase from "../db/supabase.client.js";
 
 const service = {
   createUser: async (user) => {
@@ -20,6 +21,7 @@ const service = {
         folders: true,
       },
     });
+    console.log(user.username);
     return createdUser;
   },
 };

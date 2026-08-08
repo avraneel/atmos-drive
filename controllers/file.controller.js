@@ -7,6 +7,7 @@ import {
 } from "../services/file.service.js";
 import { decode } from "base64-arraybuffer";
 import supabase from "../db/supabase.client.js";
+import prisma from "../db/client.js";
 
 export function getFileUploadForm(req, res) {
   /**
@@ -26,15 +27,16 @@ export async function uploadFilePost(req, res) {
   try {
     const folderId = res.locals.folderId;
     const file = req.file;
-    console.log(file);
+    const supabasePath =
+      req.baseUrl.slice(0, req.baseUrl.lastIndexOf("/") + 1) +
+      req.file.originalname;
     const fileBase64 = decode(file.buffer.toString("base64"));
     const { data, error } = await supabase.storage
-      .from("upload")
-      .upload(file.originalname, fileBase64, {
+      .from("uploads")
+      .upload(supabasePath, fileBase64, {
         cacheControl: "3600",
         upsert: true,
       });
-    console.log(data);
     if (error) {
       throw error;
     } else {
@@ -55,10 +57,19 @@ export async function uploadFilePost(req, res) {
 export async function deleteFilePost(req, res) {
   try {
     const fileId = Number(req.body.fileId);
+    const { url } = await prisma.file.findUnique({
+      where: {
+        id: fileId,
+      },
+      select: {
+        url: true,
+      },
+    });
+    const supabasePath = `${url.slice(url.indexOf("/") + 1)}`;
     const userId = req.user.id;
     const { data, error } = await supabase.storage
-      .from("avatars")
-      .remove([`upload/${fileId}`]);
+      .from("uploads")
+      .remove([`${supabasePath}`]);
     console.log(data);
     const deletedFile = await deleteFile(userId, fileId);
     res.redirect(req.baseUrl + getPrevUrl(req.url));
@@ -117,4 +128,8 @@ export async function downloadFile(req, res) {
 
 function getPrevUrl(url) {
   return url.slice(0, url.lastIndexOf("/"));
+}
+
+function getLast(url) {
+  return url.slice(url.lastIndexOf("/"));
 }
